@@ -1,0 +1,119 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+    <body>
+
+        <script type="text/javascript">
+            PrimeFaces.locales ['ru'] = {
+                closeText: 'Закрыть',
+                prevText: 'Назад',
+                nextText: 'Вперёд',
+                monthNames: ['Январь', 'Февраль' , 'Март' , 'Апрель' , 'Май' , 'Июнь' , 'Июль' , 'Август' , 'Сентябрь','Октябрь','Ноябрь','Декабрь' ],
+                monthNamesShort: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек' ],
+                dayNames: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Субота'],
+                dayNamesShort: ['Воск','Пон' , 'Вт' , 'Ср' , 'Четв' , 'Пят' , 'Суб'],
+                dayNamesMin: ['В', 'П', 'Вт', 'С ', 'Ч', 'П ', 'Сб'],
+                weekHeader: 'Неделя',
+                firstDay: 1,
+                isRTL: false,
+                showMonthAfterYear: false,
+                yearSuffix:'',
+                timeOnlyTitle: 'Только время',
+                timeText: 'Время',
+                hourText: 'Час',
+                minuteText: 'Минута',
+                secondText: 'Секунда',
+                currentText: 'Сегодня',
+                ampm: false,
+                month: 'Месяц',
+                week: 'неделя',
+                day: 'День',
+                allDayText: 'Весь день'
+            };
+        </script>
+        <ui:composition template="./templ.xhtml">
+
+            <!--  <ui:define name="met">
+  
+                  <f:metadata>
+                      <f:viewParam name="begDate" value="#{totalInfoBean.begDate}">
+                          <f:convertDateTime pattern="dd.MM.yyyy"/>
+                      </f:viewParam>
+                      <f:viewParam name="endDate" value="#{totalInfoBean.endDate}">
+                          <f:convertDateTime pattern="dd.MM.yyyy"/>
+                      </f:viewParam>
+                  </f:metadata>
+              </ui:define>-->
+
+            <ui:define name="top">
+            </ui:define>
+
+            <ui:define name="left">
+            </ui:define>
+
+
+            <ui:define name="content">
+                <h:form id="form" class="centerTable">
+
+                    <p:panelGrid id="panel" columns="1">
+                        <f:facet name="header">
+                            <p>
+                                <h:outputText value="Количество напечатанных страниц"/>
+                            </p>
+
+                            <h:outputLabel for="popupButton2Date" value="С" />
+                            <h:panelGrid id="panel3" columns="2" style="border-style: none; border-color: white;" rowClasses="withoutBorder" columnClasses="withoutBorder, withoutBorder"> 
+                                <p:calendar value="#{totalInfoBean.begDate}" id="popupButton2Cal" showOn="button" locale="ru" navigator="true" pattern="dd.MM.yyyy"/>
+
+                                <p:dialog header="Selected Dates" widgetVar="dialog" 
+                                          showEffect="fade" hideEffect="fade">
+
+                                    <h:outputText value="#{totalInfoBean.begDate}" id="popupButton2Date" style="height: 50%">
+                                        <f:convertDateTime pattern="dd.MM.yyyy"/>
+                                    </h:outputText>
+
+                                </p:dialog>
+                            </h:panelGrid>
+
+                            <h:outputLabel for="popupButton3Date" value="По" />
+                            <h:panelGrid id="panel4" columns="2" style="border-style: none; border-color: white;" rowClasses="withoutBorder" columnClasses="withoutBorder, withoutBorder"> 
+                                <p:calendar value="#{totalInfoBean.endDate}" id="popupButton3Cal" showOn="button" locale="ru" navigator="true" pattern="dd.MM.yyyy"/>
+
+                                <p:dialog header="Selected Dates" widgetVar="dialog" 
+                                          showEffect="fade" hideEffect="fade">
+
+                                    <h:outputText value="#{totalInfoBean.endDate}" id="popupButton3Date" style="height: 50%">
+                                        <f:convertDateTime pattern="dd.MM.yyyy"/>
+                                    </h:outputText>
+
+                                </p:dialog>
+
+
+
+                            </h:panelGrid>
+
+
+
+                            <p:commandButton action="#{totalInfoBean.result()}" value="ОК" type="submit">
+                            </p:commandButton>
+                        </f:facet>
+
+                        <p>Всего напечатано страниц #{totalInfoBean.count}</p>
+                        <f:facet name="footer">
+                            <p:button outcome="index" value="Подробнее"/>
+                            <p:button outcome="index" value="Назад"/>
+                        </f:facet>
+                    </p:panelGrid>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
+

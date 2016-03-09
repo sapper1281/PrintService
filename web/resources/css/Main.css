@@ -1,0 +1,154 @@
+/* 
+    Document   : Main
+    Created on : 30.11.2012, 9:08:18
+    Author     : VVolgina
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+
+.buttonStyle
+{
+    text-align: center;
+    padding: 4px;
+    margin: 5px;
+    border-width: 1px;
+    border-color: #666666 !important;
+}
+
+.centerTable
+{
+    margin: auto;
+    text-align: center;
+    
+}
+
+.cellStyle
+{ 
+    border-width: 0pt !important;
+}
+
+.cent
+{
+    text-align: center;
+}
+
+.errorStyle
+{
+    margin: 40px;
+    
+    font-family: 'Times New Roman',Times,serif;
+    font-size: 24px;
+    color: #ff0000;
+}
+
+.headerBig 
+{
+    
+    font-family: 'Times New Roman',Times,serif;
+    font-style: normal;
+    font-weight: bolder;
+    color:whitesmoke;
+    font-size: 24px;
+}
+
+.header
+{
+    font-style: normal;
+    font-weight: bolder;
+    color:lightgrey;
+    font-size: 14px;
+    font-family: Arial,Helvetica,sans-serif;
+}
+
+.questions
+{
+    margin: 40px 3px 80px 3px;
+    font-size: 20px;
+    font-family: 'Times New Roman',Times,serif;
+    color: #d6051c;
+}
+
+.contact
+{
+    margin: 30px 3px;
+    font-size: 14px;
+    font-family: Arial,Helvetica,sans-serif;
+    color: black;
+    
+}
+
+.contactSpan
+{
+    margin: 5px 0px;
+    display: block;
+}
+
+#counter{
+    float: right !important;
+    color: black !important;
+    font-size: 10px !important;
+}
+
+.counterClass{
+    float: right !important;
+    color: black !important;
+    margin-top: 5px;
+    font-size: 10px !important;
+}
+
+.floatingLeftButton
+{
+    text-align: center;
+    padding: 4px;
+    margin: 5px;
+    border-width: 1px;
+    border-color: #666666 !important;
+    float: left !important;
+}
+
+.centralizationDiv{
+    width: 100% !important; 
+    text-align: center !important;
+}
+
+#form:panel3, #form:panel2, #form:panel4{
+    border-width: 0 !important;
+    border-style: none !important;
+}
+
+.withoutBorder{
+    border-style: none !important;   
+}
+
+.withoutBorderShort{
+    border-style: none !important;   
+    width: 5% !important;
+}
+
+.withoutBorderMedium{
+    border-style: none !important;   
+    width: 35% !important;
+}
+
+.withoutBorderForCalendar{
+    border-style: none !important;   
+    width: 200px !important;
+}
+
+.short{ 
+    width: 30% !important;
+}
+
+.floatingRight{
+    float: right !important;
+}
+
+.floatingLeft{
+    float: left !important;
+}
+
+.calendarGrid{
+    height: 0 !important;
+    width: 190px !important;
+}

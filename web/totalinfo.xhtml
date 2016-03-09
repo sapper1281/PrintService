@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+    <body>   
+        <ui:composition template="./templ.xhtml">
+            <ui:define name="content">
+
+
+                <h:form id="form">
+                    <p:dataTable id="dataTable" emptyMessage="" rows="0" style="visibility: collapse" />
+
+                    <h:commandLink class="floatingRight" style="float: right" tabindex="3">
+                        <p:graphicImage value="./resources/images/excel.png" />
+                        <p:dataExporter type="xls" target="dataTable" fileName="TotalInfoReport" preProcessor="#{totalInfoBean.preProcessXLS}" postProcessor="#{totalInfoBean.postProcessXLS}"/>
+                    </h:commandLink>
+
+                    <p:panelGrid id="panel" columns="1" styleClass="centerTable"> 
+                        <f:facet name="header">
+                            <h3>
+                                <h:outputText value="Период"/>
+                            </h3>
+
+                            <h:panelGrid columns="3" class="withoutBorder" rowClasses="withoutBorder" columnClasses="withoutBorder, withoutBorder, withoutBorder">
+
+                                <h:panelGrid id="panel3" columns="2" class="withoutBorder" rowClasses="withoutBorder" columnClasses="withoutBorder, withoutBorder"> 
+                                    <p:calendar value="#{dateIntervalBean.begDate}" id="popupButton2Cal" showOn="button" locale="ru" navigator="true" pattern="dd.MM.yyyy"/>
+                                    <p:dialog header="Selected Dates" widgetVar="dialog" 
+                                              showEffect="fade" hideEffect="fade">
+                                        <h:outputText value="#{dateIntervalBean.begDate}" id="popupButton2Date">
+                                            <f:convertDateTime pattern="dd.MM.yyyy"/>
+                                        </h:outputText>
+                                    </p:dialog>
+                                </h:panelGrid>
+
+                                <h:outputLabel for="popupButton3Date" value="по" />
+
+                                <h:panelGrid id="panel4" columns="2" class="withoutBorder" rowClasses="withoutBorder" columnClasses="withoutBorder, withoutBorder"> 
+                                    <p:calendar value="#{dateIntervalBean.endDate}" id="popupButton3Cal" showOn="button" locale="ru" navigator="true" pattern="dd.MM.yyyy"/>
+                                    <p:dialog header="Selected Dates" widgetVar="dialog" 
+                                              showEffect="fade" hideEffect="fade">
+                                        <h:outputText value="#{dateIntervalBean.endDate}" id="popupButton3Date">
+                                            <f:convertDateTime pattern="dd.MM.yyyy"/>
+                                        </h:outputText>
+                                    </p:dialog>
+                                </h:panelGrid>
+
+                            </h:panelGrid>
+
+                            <h:commandButton value="ОК" action="#{totalInfoBean.action}"/>
+                        </f:facet>
+
+                        <h:outputText value="#{totalInfoBean.output}" />
+                        <h:outputText value="#{totalInfoBean.output1}" />
+
+                        <f:facet name="footer">
+                            <h:button value="Подробнее" tabindex="1" outcome="more" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only floatingLeftButton">
+                                <f:param name="beg" value="#{dateIntervalBean.strBegin}}" />
+                                <f:param name="end" value="#{dateIntervalBean.strEnd}" />
+                            </h:button>
+                            <h:button outcome="back" tabindex="2" value="Назад" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only floatingLeftButton"/>
+                        </f:facet>
+                    </p:panelGrid>
+
+                </h:form>              
+            </ui:define>           
+        </ui:composition>
+    </body>
+</html>
+

@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./templ.xhtml">
+
+            <ui:define name="top">
+            </ui:define>
+
+            <ui:define name="left">
+            </ui:define>
+
+            <ui:define name="content">
+                <h:form>
+                    <h:commandLink>
+                        <p:graphicImage value="/images/excel.png" />
+                        <p:dataExporter type="xls" target="dataTable" fileName="report"/>
+                    </h:commandLink>
+                    <p:dataTable id="dataTable" var="item" value="#{usersPageBean.beanList}" widgetVar="carsTable"   
+                                 emptyMessage="Нет пользователей удовлетворяющих условию" filteredValue="#{usersPageBean.filteredBeanList}">  
+                        <f:facet name="header">  
+                            Пользователи
+                        </f:facet>  
+
+                        <p:column id="id" headerText="ID">  
+                            <h:outputText value="#{item.id}" />  
+                        </p:column>  
+
+                        <p:column id="fio" headerText="ФИО" filterBy="#{item.FIO}" filterMatchMode="contains" sortBy="#{item.FIO}">  
+                            <h:outputText value="#{item.FIO}" />  
+                        </p:column>  
+
+                        <p:column id="sn" headerText="Короткое имя пользователя">  
+                            <h:outputText value="#{item.account_sn}" />  
+                        </p:column> 
+
+                        <p:column id="del" headerText="Удален">  
+                            <h:outputText value="Удален" rendered="#{item.delete_flag}"/>
+                        </p:column>
+
+                        <p:column id="dbeg" headerText="Активен с">  
+                            <h:outputText value="#{item.dt_beg}">
+                                <f:convertDateTime pattern="dd.MM.yyyy"/>
+                            </h:outputText> 
+                        </p:column>
+
+                        <p:column headerText="">  
+                            <div class="centralizationDiv">
+                                <h:commandButton type="submit"  value="Добавить права" action="#{usersPageBean.editItem()}" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only buttonStyle">
+                                    <f:param name="item" value="#{item.id}" />
+                                </h:commandButton>
+                            </div>
+                        </p:column> 
+
+
+                        <f:facet name="footer">  
+                            <h:panelGroup class="buttonStyle">
+                                <h:commandButton type="submit" id="exit"  value="Назад" action="menu" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only floatingLeftButton">
+                                </h:commandButton>
+                                <h:outputText id="counter" class="counterClass" value="К-во строк: #{usersPageBean.filteredBeanList.size()}"/>  
+                            </h:panelGroup>
+                        </f:facet> 
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+
+
+        </ui:composition>
+
+    </body>
+</html>

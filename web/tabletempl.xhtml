@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./templ.xhtml">
+
+            <ui:define name="content">
+                <h:form id="form">
+
+                    <h:commandLink>
+                        <p:graphicImage value="./resources/images/excel.png" />
+                        <p:dataExporter type="xls" target="dataTable" fileName="DepartementsReport"/>
+                        <f:param name="beg" value="#{departmentInfo.strBegin}" />
+                        <f:param name="end" value="#{departmentInfo.strEnd}" />
+                    </h:commandLink>
+
+
+                    <p:dataTable id="dataTable" var="item" value="#{departmentInfo.list}" widgetVar="carsTable"   
+                                 emptyMessage="Нет строк" filteredValue="#{departmentInfo.filteredBeanList}">  
+                        <f:facet name="header"> 
+
+                            <h:panelGrid columns="4" style="border-style: none; border-color: white; float: left; width: 0" rowClasses="withoutBorder,withoutBorder" columnClasses="withoutBorder, withoutBorder, withoutBorder">
+
+                                <h:outputText value="Период" style="float: left"/>
+                                <h:inputHidden value="Some Text"/>
+                                <h:inputHidden value="Some Text"/>
+                                <h:inputHidden value="Some Text"/>
+                                <h:panelGrid id="panel3" columns="2" style="border-style: none; border-color: white; " rowClasses="withoutBorder" columnClasses="withoutBorder, withoutBorder"> 
+
+                                    <p:calendar value="#{departmentInfo.begDate}" id="popupButton2Cal" showOn="button" locale="ru" navigator="true" pattern="dd.MM.yyyy"/>
+
+                                    <p:dialog header="Selected Dates" widgetVar="dialog" 
+                                              showEffect="fade" hideEffect="fade">
+
+                                        <h:outputText value="#{departmentInfo.begDate}" id="popupButton2Date" style="height: 50%">
+                                            <f:convertDateTime pattern="dd.MM.yyyy"/>
+                                        </h:outputText>
+
+                                    </p:dialog>
+                                </h:panelGrid>
+                                <h:outputLabel for="popupButton3Date" value="По" />
+                                <h:panelGrid id="panel4" columns="2" style="border-style: none; border-color: white;" rowClasses="withoutBorder" columnClasses="withoutBorder, withoutBorder"> 
+                                    <p:calendar value="#{departmentInfo.endDate}" id="popupButton3Cal" showOn="button" locale="ru" navigator="true" pattern="dd.MM.yyyy"/>
+
+                                    <p:dialog header="Selected Dates" widgetVar="dialog" 
+                                              showEffect="fade" hideEffect="fade">
+
+                                        <h:outputText value="#{departmentInfo.endDate}" id="popupButton3Date" style="height: 50%">
+                                            <f:convertDateTime pattern="dd.MM.yyyy"/>
+                                        </h:outputText>
+
+                                    </p:dialog>
+
+
+
+                                </h:panelGrid>
+                                <h:commandButton value="Ок" action="#{departmentInfo.action}" />
+                            </h:panelGrid>
+
+
+                        </f:facet>  
+
+                        <p:column id="name" filterBy="#{item.department_fn}" filterMatchMode="startsWith" sortBy="#{item.department_fn}">  
+                            <f:facet name="header">  
+                                <h:outputText value="Отдел" />  
+                            </f:facet>
+                            <h:outputText value="#{item.department_fn}" />
+                        </p:column> 
+
+                        <p:column id="doc" sortBy="#{item.docCount}">  
+                            <f:facet name="header">  
+                                <h:outputText value="Документов" />  
+                            </f:facet>
+                            <h:outputText value="#{item.docCount}" />  
+                        </p:column> 
+
+                        <p:column id="pag" sortBy="#{item.pageCount}"> 
+                            <f:facet name="header">  
+                                <h:outputText value="Страниц" />  
+                            </f:facet>
+                            <h:outputText value="#{item.pageCount}" />  
+                        </p:column> 
+
+                        <p:column id="mm" headerText="" exportable="false">  
+                            <div class="centralizationDiv">
+                                <h:button value="Подробнее" outcome="#{departmentInfo.action1()}" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+                                    <f:param name="beg" value="#{departmentInfo.strBegin}" />
+                                    <f:param name="end" value="#{departmentInfo.strEnd}" />
+                                    <f:param name="id" value="#{item.item.id}" />
+                                </h:button>
+                            </div>
+                        </p:column> 
+
+                        <f:facet name="footer">
+                            <h:button outcome="index" value="Назад" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only floatingLeftButton"/>
+                        </f:facet>
+                    </p:dataTable>
+
+                </h:form>       
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

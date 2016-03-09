@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+    <body>
+
+
+        <ui:composition template="./templ.xhtml">
+
+
+            <ui:define name="content">
+                <h:form id="form" prependId="false">
+                    <h:inputHidden value="#{userInfoBean.idDep}" id="id"/>
+                    
+                    <h:commandLink class="floatingRight">
+                        <p:graphicImage value="./resources/images/excel.png" />
+                        <p:dataExporter type="xls" target="dataTable" fileName="UsersReport" postProcessor="#{userInfoBean.postProcessXLS}" preProcessor="#{userInfoBean.preProcessXLS}"/>
+                    </h:commandLink>
+
+                    <h:panelGrid columns="4" styleClass="withoutBorder, floatingLeft" style="width: 30%; height: 0" rowClasses="withoutBorder,withoutBorder" columnClasses="withoutBorderForCalendar, withoutBorderShort, withoutBorderForCalendar">
+                        <h:outputText value="Период" class="floatingLeft"/>
+                        <h:inputHidden value="Some Text"/>
+                        <h:inputHidden value="Some Text"/>
+                        <h:inputHidden value="Some Text"/>
+
+                        <h:panelGrid id="panel3" columns="2" class="withoutBorder, calendarGrid" rowClasses="withoutBorder" columnClasses="withoutBorder, withoutBorder"> 
+                            <p:calendar value="#{dateIntervalBean.begDate}" id="popupButton2Cal" showOn="button" locale="ru" navigator="true" pattern="dd.MM.yyyy"/>
+                            <p:dialog header="Selected Dates" widgetVar="dialog" 
+                                      showEffect="fade" hideEffect="fade">
+                                <h:outputText value="#{dateIntervalBean.begDate}" id="popupButton2Date">
+                                    <f:convertDateTime pattern="dd.MM.yyyy"/>
+                                </h:outputText>
+                            </p:dialog>
+                        </h:panelGrid>
+
+                        <h:outputLabel for="popupButton3Date" value="по" style="height: 0; width: 0"/>
+
+                        <h:panelGrid id="panel4" columns="2" class="withoutBorder, calendarGrid" rowClasses="withoutBorder" columnClasses="withoutBorder, withoutBorder"> 
+                            <p:calendar value="#{dateIntervalBean.endDate}" id="popupButton3Cal" showOn="button" locale="ru" navigator="true" pattern="dd.MM.yyyy"/>
+                            <p:dialog header="Selected Dates" widgetVar="dialog" 
+                                      showEffect="fade" hideEffect="fade">
+                                <h:outputText value="#{dateIntervalBean.endDate}" id="popupButton3Date">
+                                    <f:convertDateTime pattern="dd.MM.yyyy"/>
+                                </h:outputText>
+                            </p:dialog>
+                        </h:panelGrid>
+
+                        <h:commandButton value="ОК" action="#{userInfoBean.action}">
+                            <f:param name="id" value="#{userInfoBean.idDep}" />
+                        </h:commandButton>
+                    </h:panelGrid>  
+
+                    <p:dataTable id="dataTable" var="item" value="#{userInfoBean.list}" emptyMessage="Нет записей" filteredValue="#{userInfoBean.filteredBeanList}">  
+
+                        <p:column id="name" filterBy="#{item.item.FIO}" filterMatchMode="startsWith" sortBy="#{item.item.FIO}"> 
+                            <f:facet name="header">  
+                                <h:outputText value="ФИО" />  
+                            </f:facet>
+                            <h:outputText value="#{item.item.FIO}" /> 
+                        </p:column> 
+
+                        <p:column id="doc" sortBy="#{item.docCount}">  
+                            <f:facet name="header">  
+                                <h:outputText value="Документов" />  
+                            </f:facet>
+                            <h:outputText value="#{item.docCount}" />  
+                        </p:column> 
+
+                        <p:column id="pag" sortBy="#{item.pageCount}"> 
+                            <f:facet name="header">  
+                                <h:outputText value="Страниц" />  
+                            </f:facet>
+                            <h:outputText value="#{item.pageCount}" />  
+                        </p:column> 
+
+                        <p:column id="butons" headerText="" exportable="false">  
+                            <div class="centralizationDiv">
+                                <h:button value="Подробнее" outcome="more" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+                                    <f:param name="idAcc" value="#{item.item.id}" />
+                                    <f:param name="id" value="#{userInfoBean.idDep}" />
+                                </h:button>
+                            </div>
+                        </p:column> 
+
+                        <f:facet name="footer">
+                            <h:button outcome="back" value="Назад" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only floatingLeftButton"/>
+                        </f:facet>
+                    </p:dataTable>
+
+                </h:form>              
+            </ui:define>           
+
+
+        </ui:composition>
+
+    </body>
+</html>
+

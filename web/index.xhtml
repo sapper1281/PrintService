@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <body>
+        <ui:composition template="./templ.xhtml">
+            <ui:define name="content">
+
+                <h:form id="form">
+                    <p:panelGrid id="vp" columns="3" styleClass="centerTable">
+
+                        <f:facet name="header">
+                            <h:panelGrid id="pp" columns="3" class="withoutBorder" rowClasses="withoutBorder" columnClasses="withoutBorder, withoutBorder, withoutBorder">
+
+                                <h3>
+                                    <h:outputText value="Период"/>
+                                </h3>
+
+                                <h:panelGrid id="panel3" columns="2" class="withoutBorder" rowClasses="withoutBorder" columnClasses="withoutBorder, withoutBorder"> 
+                                    <p:calendar value="#{dateIntervalBean.begDate}" id="popupButton2Cal" showOn="button" locale="ru" navigator="true" pattern="dd.MM.yyyy"/>
+                                    <p:dialog header="Selected Dates" widgetVar="dialog" 
+                                              showEffect="fade" hideEffect="fade">
+                                        <h:outputText value="#{dateIntervalBean.begDate}" id="popupButton2Date">
+                                            <f:convertDateTime pattern="dd.MM.yyyy"/>
+                                        </h:outputText>
+                                    </p:dialog>
+                                </h:panelGrid>
+
+                                <h:outputLabel for="popupButton3Date" value="по" />
+                                <h:panelGrid id="panel4" columns="2" class="withoutBorder" rowClasses="withoutBorder" columnClasses="withoutBorder, withoutBorder"> 
+                                    <p:calendar value="#{dateIntervalBean.endDate}" id="popupButton3Cal" showOn="button" locale="ru" navigator="true" pattern="dd.MM.yyyy"/>
+
+                                    <p:dialog header="Selected Dates" widgetVar="dialog" 
+                                              showEffect="fade" hideEffect="fade">
+
+                                        <h:outputText value="#{dateIntervalBean.endDate}" id="popupButton3Date">
+                                            <f:convertDateTime pattern="dd.MM.yyyy"/>
+                                        </h:outputText>
+                                    </p:dialog>
+                                </h:panelGrid>
+
+                            </h:panelGrid>
+                        </f:facet>
+
+                        <h:commandButton tabindex="1" value="Отчет по ВЦ" action="total" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only floatingLeftButton"/>
+                        <h:commandButton tabindex="2" value="Отчет по отделам" action="#{mainPageBean.department}" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only floatingLeftButton"/>
+                        <h:commandButton tabindex="3" value="Отчет по сотрудникам" action="userinfo" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only floatingLeftButton">
+                           <f:param name="id" value="-100" />
+                        </h:commandButton>
+                    </p:panelGrid>
+                </h:form>              
+            </ui:define>           
+        </ui:composition>
+    </body>
+</html>
+
